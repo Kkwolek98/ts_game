@@ -1,26 +1,34 @@
 import { CanvasUtils } from "./canvas-utils/CanvasUtils";
 import { Game } from "./game/Game";
+import { UI } from "./ui/UI";
 
-let canvas: HTMLCanvasElement;
+let gameCanvas: HTMLCanvasElement;
+let uiCanvas: HTMLCanvasElement;
 let ctx: CanvasRenderingContext2D;
 let game: Game;
 let canvasUtils: CanvasUtils;
 
 function init(): void {
-  canvas = document.getElementById('canvas') as HTMLCanvasElement;
-  ctx = canvas.getContext('2d') as CanvasRenderingContext2D; 
+  gameCanvas = document.getElementById('game') as HTMLCanvasElement;
+  uiCanvas = document.getElementById('ui') as HTMLCanvasElement;
+  ctx = gameCanvas.getContext('2d') as CanvasRenderingContext2D; 
 
-  canvas.width = 1920;
-  canvas.height = 1080;
+  gameCanvas.width = 1920;
+  gameCanvas.height = 1080;
 
-  canvasUtils = new CanvasUtils(canvas);
+  uiCanvas.width = 1920;
+  uiCanvas.height = 1080;
+
+  UI.canvas = uiCanvas;
+
+  canvasUtils = new CanvasUtils(gameCanvas);
 
   startGame();
   loop();
 }
 
 function startGame(): void {
-  game = new Game(canvas, { fps: 30 });
+  game = new Game(gameCanvas, { fps: 30 });
   game.start();
 }
 
