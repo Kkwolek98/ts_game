@@ -1,16 +1,18 @@
 import { Game } from "../game/Game";
+import { GlobalSettings } from "../misc/GlobalSettings";
 import { HpBar } from "./HpBar";
 
 export class UI {
   
-  public static canvas: HTMLCanvasElement; 
+  public canvas: HTMLCanvasElement = GlobalSettings.canvasInstances.get('ui')!;
 
   private hpBar: HpBar;
 
   constructor(
     private game: Game
   ) {
-    this.hpBar = new HpBar(this.game.player, UI.canvas);
+    if (!this.canvas) throw new Error('UI canvas undefined');
+    this.hpBar = new HpBar(this.game.player, this.canvas);
   }
 
   public update() {

@@ -1,17 +1,13 @@
 import { CanvasUtils } from "./canvas-utils/CanvasUtils";
 import { Game } from "./game/Game";
-import { UI } from "./ui/UI";
+import { GlobalSettings } from "./misc/GlobalSettings";
 
-let gameCanvas: HTMLCanvasElement;
-let uiCanvas: HTMLCanvasElement;
-let ctx: CanvasRenderingContext2D;
 let game: Game;
-let canvasUtils: CanvasUtils;
 
 function init(): void {
-  gameCanvas = document.getElementById('game') as HTMLCanvasElement;
-  uiCanvas = document.getElementById('ui') as HTMLCanvasElement;
-  ctx = gameCanvas.getContext('2d') as CanvasRenderingContext2D; 
+  const gameCanvas = document.getElementById('game') as HTMLCanvasElement;
+  const uiCanvas = document.getElementById('ui') as HTMLCanvasElement;
+  const playerCanvas = document.getElementById('player') as HTMLCanvasElement;
 
   gameCanvas.width = 1920;
   gameCanvas.height = 1080;
@@ -19,21 +15,24 @@ function init(): void {
   uiCanvas.width = 1920;
   uiCanvas.height = 1080;
 
-  UI.canvas = uiCanvas;
+  playerCanvas.width = 1920;
+  playerCanvas.height = 1080;
 
-  canvasUtils = new CanvasUtils(gameCanvas);
+  GlobalSettings.canvasInstances.set('ui', uiCanvas);
+  GlobalSettings.canvasInstances.set('background', gameCanvas);
+  GlobalSettings.canvasInstances.set('player', playerCanvas);
 
   startGame();
   loop();
 }
 
 function startGame(): void {
-  game = new Game(gameCanvas, { fps: 30 });
+  game = new Game({ fps: 30 });
   game.start();
 }
 
 function loop() {
-  canvasUtils.clearCanvas();
+  CanvasUtils.clearAllCanvas(); // TODO: clear only canvas that have changed
   game.animate();
   requestAnimationFrame(loop);
 }

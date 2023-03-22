@@ -1,4 +1,5 @@
 import { CollisionCircle } from "../collision/CollisionCircle";
+import { GlobalSettings } from "../misc/GlobalSettings";
 import { Point } from "../misc/Point";
 
 interface RestoreSettings {restoreSettings: Function};
@@ -13,6 +14,12 @@ export class CanvasUtils {
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
   }
 
+  public static clearAllCanvas(): void {
+    GlobalSettings.getAllCanvasInstances().forEach((canvas) => {
+      canvas.getContext('2d')!.clearRect(0, 0, canvas.width, canvas.height);
+    });
+  }
+
   public drawCircle({x, y, radius}: CollisionCircle, drawMode: DrawMode = DrawMode.FILL): RestoreSettings {
     this.ctx.beginPath();
     this.ctx.arc(x, y, radius, 0, 2 * Math.PI);
@@ -22,7 +29,6 @@ export class CanvasUtils {
   }
 
   public drawRectangle(from: Point, to: Point, drawMode: DrawMode = DrawMode.FILL): RestoreSettings {
-    console.log(this.ctx.fillStyle)
     this.ctx.beginPath();
     this.ctx.rect(from.x, from.y, to.x, to.y);
     this.fillOrStroke(drawMode);
@@ -43,7 +49,6 @@ export class CanvasUtils {
   }
 
   public restoreSettings() {
-    console.log(this.ctx)
     this.ctx.restore();
   }
 
