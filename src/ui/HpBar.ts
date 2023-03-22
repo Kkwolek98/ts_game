@@ -28,7 +28,7 @@ export class HpBar {
       .setFillStyle('green')
       .drawRectangle(
         { x: this.HP_BAR_POSITION.x, y: this.HP_BAR_POSITION.y },
-        { x: this.HP_BAR_POSITION.x + hpPercentage, y: this.HP_BAR_POSITION.y + this.HP_BAR_HEIGHT }
+        { width: hpPercentage, height: this.HP_BAR_HEIGHT }
       );
     this.canvasUtils.restoreSettings();
     if (hpPercentage !== 100) {
@@ -36,7 +36,7 @@ export class HpBar {
         .setFillStyle('red')
         .drawRectangle(
           { x: this.HP_BAR_POSITION.x + hpPercentage, y: this.HP_BAR_POSITION.y },
-          { x: 120, y: this.HP_BAR_POSITION.y + this.HP_BAR_HEIGHT } 
+          { width: 100 - hpPercentage, height: this.HP_BAR_HEIGHT } 
         );
     }
     this.canvasUtils.restoreSettings();

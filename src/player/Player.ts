@@ -10,8 +10,9 @@ export class Player implements Movable {
 
   public speed: number = 10;
   public maxHp: number = 100;
-  public currentHp: number = this.maxHp - 20;
+  public currentHp: number = this.maxHp - 30;
 
+  private canvas: HTMLCanvasElement = GlobalSettings.canvasInstances.get('player')!;
   private canvasUtils!: CanvasUtils;
   private movementHandler: MovementHandler;
   private equippedWeapon: Weapon;
@@ -20,17 +21,18 @@ export class Player implements Movable {
     private game: Game,
     public collision: CollisionCircle,
   ) {
-    if (GlobalSettings.canvasInstances.get('player')) {
-      this.canvasUtils = new CanvasUtils(GlobalSettings.canvasInstances.get('player')!);
+    if (this.canvas) {
+      this.canvasUtils = new CanvasUtils(this.canvas);
     } else {
       throw new Error('Player canvas undefined');
     }
     this.movementHandler = new MovementHandler(this);
-    this.equippedWeapon = new Weapon(10);
+    this.equippedWeapon = new Weapon(this.canvas, this, 10);
   }
 
   public update(): void {
     this.movementHandler.move();
+    this.equippedWeapon.draw();
     this.draw();
   }
 

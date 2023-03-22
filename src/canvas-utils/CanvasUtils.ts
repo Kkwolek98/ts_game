@@ -1,6 +1,6 @@
 import { CollisionCircle } from "../collision/CollisionCircle";
 import { GlobalSettings } from "../misc/GlobalSettings";
-import { Point } from "../misc/Point";
+import { Dimnensions, Point } from "../misc/Point";
 
 interface RestoreSettings {restoreSettings: Function};
 
@@ -28,9 +28,9 @@ export class CanvasUtils {
     return { restoreSettings: this.restoreSettings };
   }
 
-  public drawRectangle(from: Point, to: Point, drawMode: DrawMode = DrawMode.FILL): RestoreSettings {
+  public drawRectangle(from: Point, dimensions: Dimnensions, drawMode: DrawMode = DrawMode.FILL): RestoreSettings {
     this.ctx.beginPath();
-    this.ctx.rect(from.x, from.y, to.x, to.y);
+    this.ctx.rect(from.x, from.y, dimensions.width, dimensions.height);
     this.fillOrStroke(drawMode);
     this.ctx.closePath();
     return { restoreSettings: this.restoreSettings };
