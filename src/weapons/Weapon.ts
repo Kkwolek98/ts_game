@@ -28,7 +28,7 @@ export class Weapon {
   private drawSelf(): void {
     this.canvasUtils.setFillStyle('gray');
     this.canvasUtils.drawRectangle(
-      { x: this.entity.collision.x, y: this.entity.collision.y  },
+      { x: this.entity.collision.x - 3, y: this.entity.collision.y  },
       { width: 6, height: 60  },
       this.entity.rotation
     );
@@ -38,9 +38,13 @@ export class Weapon {
   private listenForKey(): void {
     window.addEventListener('keypress', (e) => {
       if (e.code === 'Space') {
-        this.firedBullet = new Bullet(this.entity.collision, 10, 200, this.canvas);
-        console.log(this.firedBullet)
+        this.fireBullet();
       }
     })
   }
+
+  private fireBullet(): void {
+    this.firedBullet = new Bullet(this.entity.collision, 10, 200, this.entity, this.canvas);
+  }
+
 }

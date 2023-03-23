@@ -11,7 +11,7 @@ export class Player implements Movable {
   public speed: number = 10;
   public maxHp: number = 100;
   public currentHp: number = this.maxHp - 30;
-  public rotation: number = 2 * Math.PI;
+  public rotation: number = 180;
 
   private canvas: HTMLCanvasElement = GlobalSettings.canvasInstances.get('player')!;
   private canvasUtils!: CanvasUtils;

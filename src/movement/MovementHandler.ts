@@ -22,8 +22,7 @@ export class MovementHandler {
       const rotation = Math.atan2(vector.x, vector.y)
 
       this.entity.rotation = ((rotation * -180) / Math.PI + 360) % 360;
-      // this.entity.rotation = rotation;
-      console.log(this.entity.rotation)
+
       this.entity.collision.x += movementVector.x;
       this.entity.collision.y += movementVector.y;
     } else if(!(this.entity instanceof Player)) {
