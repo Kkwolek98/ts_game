@@ -38,9 +38,11 @@ export class MovementHandler {
   private getPositionDelta(): { x: number, y: number } {
     const vector = this.getMovementVector();
 
+    const diagonalModifier = Math.abs(vector.x && vector.y) * Math.SQRT1_2;
+
     return {
-      x: vector.x! * this.entity.speed,
-      y: vector.y! * this.entity.speed
+      x: vector.x! * this.entity.speed * (diagonalModifier || 1),
+      y: vector.y! * this.entity.speed * (diagonalModifier || 1)
     };
   }
 
