@@ -28,11 +28,20 @@ export class CanvasUtils {
     return { restoreSettings: this.restoreSettings };
   }
 
-  public drawRectangle(from: Point, dimensions: Dimnensions, drawMode: DrawMode = DrawMode.FILL): RestoreSettings {
+  public drawRectangle(from: Point, dimensions: Dimnensions, rotation: number | null = null, drawMode: DrawMode = DrawMode.FILL): RestoreSettings {
     this.ctx.beginPath();
+    this.ctx.save();
+    if (rotation !== null) {
+      const radians = rotation * Math.PI / 180;
+      this.ctx.translate(from.x, from.y); // move the origin to the top-left corner of the rectangle
+      this.ctx.rotate(radians); // apply the rotation
+      this.ctx.translate(-from.x, -from.y); // move the origin back to the original position
+  
+    }
     this.ctx.rect(from.x, from.y, dimensions.width, dimensions.height);
     this.fillOrStroke(drawMode);
     this.ctx.closePath();
+    this.ctx.restore();
     return { restoreSettings: this.restoreSettings };
   }
 

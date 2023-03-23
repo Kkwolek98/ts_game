@@ -5,8 +5,8 @@ import { Movable } from "./Movable";
 export class MovementHandler {
   private pressedKeyY: string | null = null;
   private pressedKeyX: string | null = null;
-  constructor(private movableObject: Movable) {
-    if (this.movableObject instanceof Player) {
+  constructor(private entity: Movable) {
+    if (this.entity instanceof Player) {
       this.setupListener();
     }
   }
@@ -14,25 +14,41 @@ export class MovementHandler {
   public move(x?: number, y?: number) {
     const pressedAnyKey = this.pressedKeyX || this.pressedKeyY;
 
-    if (this.movableObject instanceof Player && pressedAnyKey) {
+    if (this.entity instanceof Player && pressedAnyKey) {
       const movementVector = this.getPositionDelta();
 
-      this.movableObject.collision.x += movementVector.x;
-      this.movableObject.collision.y += movementVector.y;
-    } else if(!(this.movableObject instanceof Player)) {
-      this.movableObject.collision.x += x! * this.movableObject.speed;
-      this.movableObject.collision.y += y! * this.movableObject.speed;
+      const vector = this.getMovementVector();
+
+      const rotation = Math.atan2(vector.x, vector.y)
+
+      this.entity.rotation = ((rotation * -180) / Math.PI + 360) % 360;
+      // this.entity.rotation = rotation;
+      console.log(this.entity.rotation)
+      this.entity.collision.x += movementVector.x;
+      this.entity.collision.y += movementVector.y;
+    } else if(!(this.entity instanceof Player)) {
+      this.entity.collision.x += x! * this.entity.speed;
+      this.entity.collision.y += y! * this.entity.speed;
     }
 
   }
 
   private getPositionDelta(): { x: number, y: number } {
+    const vector = this.getMovementVector();
+
+    return {
+      x: vector.x! * this.entity.speed,
+      y: vector.y! * this.entity.speed
+    };
+  }
+
+  private getMovementVector(): { x: number, y: number } {
     const movementVectorX = this.pressedKeyX ? (DEFAULT_KEY_MAPPING[this.pressedKeyX] || { x: 0 }) : { x: 0 };
     const movementVectorY = this.pressedKeyY ? (DEFAULT_KEY_MAPPING[this.pressedKeyY] || { y: 0 }) : { y: 0 };
 
     return {
-      x: movementVectorX.x! * this.movableObject.speed,
-      y: movementVectorY.y! * this.movableObject.speed
+      x: movementVectorX.x!,
+      y: movementVectorY.y!
     };
   }
 

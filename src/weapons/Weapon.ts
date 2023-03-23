@@ -28,8 +28,9 @@ export class Weapon {
   private drawSelf(): void {
     this.canvasUtils.setFillStyle('gray');
     this.canvasUtils.drawRectangle(
-      { x: this.entity.collision.x - 3, y: this.entity.collision.y  },
-      { width: 6, height: -20  },
+      { x: this.entity.collision.x, y: this.entity.collision.y  },
+      { width: 6, height: 60  },
+      this.entity.rotation
     );
     this.canvasUtils.restoreSettings();
   }
