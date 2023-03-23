@@ -1,4 +1,4 @@
-import { CollisionCircle } from "../collision/CollisionCircle";
+import { CollisionCircle } from "../../collision/CollisionCircle";
 
 export interface Movable {
   speed: number

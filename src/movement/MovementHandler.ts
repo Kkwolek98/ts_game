@@ -1,6 +1,6 @@
 import { Player } from "../player/Player";
-import { DEFAULT_KEY_MAPPING, getMovementType, MovementType } from "./defaultKeyMapping";
-import { Movable } from "./Movable";
+import { DEFAULT_KEY_MAPPING, getMovementType, MovementType } from "./consts/defaultKeyMapping";
+import { Movable } from "./interfaces/Movable.interface";
 
 export class MovementHandler {
   private pressedKeyY: string | undefined;

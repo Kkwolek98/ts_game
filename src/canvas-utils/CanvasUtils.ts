@@ -1,7 +1,7 @@
 import { CollisionCircle } from "../collision/CollisionCircle";
-import { angleToVector } from "../misc/angleUtils";
+import { angleToVector } from "../misc/consts/angleUtils";
 import { GlobalSettings } from "../misc/GlobalSettings";
-import { Dimnensions, Point } from "../misc/Point";
+import { Dimnensions, Point } from "../misc/interfaces/Point.interface";
 
 interface RestoreSettings {restoreSettings: Function};
 

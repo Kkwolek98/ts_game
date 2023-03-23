@@ -1,5 +1,5 @@
 import { CanvasUtils } from "../canvas-utils/CanvasUtils";
-import { Point } from "../misc/Point";
+import { Point } from "../misc/interfaces/Point.interface";
 import { Player } from "../player/Player";
 
 export class HpBar {

@@ -2,7 +2,7 @@ import { CanvasUtils } from "../canvas-utils/CanvasUtils";
 import { CollisionCircle } from "../collision/CollisionCircle";
 import { Game } from "../game/Game";
 import { GlobalSettings } from "../misc/GlobalSettings";
-import { Movable } from "../movement/Movable";
+import { Movable } from "../movement/interfaces/Movable.interface";
 import { MovementHandler } from "../movement/MovementHandler";
 import { Weapon } from "../weapons/Weapon";
 
