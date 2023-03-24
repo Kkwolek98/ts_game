@@ -1,6 +1,6 @@
 import { CanvasUtils } from "../canvas-utils/CanvasUtils";
 import { Point } from "../misc/interfaces/Point.interface";
-import { Player } from "../player/Player";
+import { Player } from "../entities/Player";
 
 export class HpBar {
   private canvasUtils: CanvasUtils;

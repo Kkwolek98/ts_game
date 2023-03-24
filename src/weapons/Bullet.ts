@@ -2,7 +2,7 @@ import { CanvasUtils } from "../canvas-utils/CanvasUtils";
 import { angleToVector } from "../misc/consts/angleUtils";
 import { Point } from "../misc/interfaces/Point.interface";
 import { Vector } from "../misc/interfaces/Vector.interface";
-import { Player } from "../player/Player";
+import { Player } from "../entities/Player";
 
 export class Bullet {
 

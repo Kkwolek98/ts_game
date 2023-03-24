@@ -1,5 +1,5 @@
 import { GlobalSettings } from "../misc/GlobalSettings";
-import { Player } from "../player/Player";
+import { Player } from "../entities/Player";
 import { UI } from "../ui/UI";
 import { GameSettings } from "./GameSettings";
 

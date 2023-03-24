@@ -1,5 +1,5 @@
 import { CanvasUtils } from "../canvas-utils/CanvasUtils";
-import { Player } from "../player/Player";
+import { Player } from "../entities/Player";
 import { Bullet } from "./Bullet";
 
 export class Weapon {
