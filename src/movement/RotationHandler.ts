@@ -1,8 +1,9 @@
+import { Entity } from "../entities/Entity";
 import { Player } from "../entities/Player";
 import { getMovementType, getMovementVector, MovementType } from "./consts/defaultKeyMapping";
 
 export class RotationHandler {
-  constructor(private entity: Player) {
+  constructor(private entity: Entity) {
     if (entity instanceof Player) {
       this.listenForStaticRotation();
     }
@@ -21,7 +22,7 @@ export class RotationHandler {
     const {x, y} = getMovementVector(pressedKeyX, pressedKeyY);
 
     this.setRotation(x, y)
-  } // TODO: Handle rotation after i.e. SHIFT + W
+  }
 
   private setRotation(x: number, y: number): void {
     if (x || y) {

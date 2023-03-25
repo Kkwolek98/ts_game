@@ -1,4 +1,7 @@
 import { Player } from "../entities/Player";
+import { Game } from "../game/Game";
+import { angleToVector } from "../misc/consts/angleUtils";
+import { Vector } from "../misc/interfaces/Vector.interface";
 import { DEFAULT_KEY_MAPPING, getMovementType, getMovementVector, MovementType } from "./consts/defaultKeyMapping";
 import { Movable } from "./interfaces/Movable.interface";
 
@@ -8,7 +11,10 @@ export class MovementHandler {
   private allPressedKeysX: string[] = [];
   private allPressedKeysY: string[] = [];
 
-  constructor(private entity: Movable) {
+  constructor(
+    private entity: Movable,
+    private game: Game  
+  ) {
     if (this.entity instanceof Player) {
       this.setupListener();
     }
@@ -22,8 +28,15 @@ export class MovementHandler {
       this.entity.collision.x += movementVector.x;
       this.entity.collision.y += movementVector.y;
     } else if(!(this.entity instanceof Player)) {
-      this.entity.collision.x += x! * this.entity.speed;
-      this.entity.collision.y += y! * this.entity.speed;
+      const radiansToPlayer = Math.atan2(
+        this.game?.player.collision.x - this.entity.collision.x,
+        this.game?.player.collision.y - this.entity.collision.y
+      );
+      const angle = ((radiansToPlayer * -180) / Math.PI + 360) % 360;
+      const vector = angleToVector(angle);
+      const movementVector = this.getPositionDelta(vector);
+      this.entity.collision.x += movementVector.x;
+      this.entity.collision.y += movementVector.y;
     }
 
   }
@@ -32,10 +45,12 @@ export class MovementHandler {
     return getMovementVector(this.pressedKeyX, this.pressedKeyY);
   }
 
-  private getPositionDelta(): { x: number, y: number } {
-    const vector = this.getMovementVector();
+  private getPositionDelta(vector?: Vector): { x: number, y: number } {
+    if (!vector) {
+      vector = this.getMovementVector();
+    }
 
-    const diagonalModifier = Math.abs(vector.x && vector.y) * Math.SQRT1_2;
+    const diagonalModifier = Math.abs(Math.ceil(vector.x && vector.y)) * Math.SQRT1_2;
 
     return {
       x: vector.x! * this.entity.speed * (diagonalModifier || 1),

@@ -2,7 +2,7 @@ import { CanvasUtils } from "../canvas-utils/CanvasUtils";
 import { angleToVector } from "../misc/consts/angleUtils";
 import { Point } from "../misc/interfaces/Point.interface";
 import { Vector } from "../misc/interfaces/Vector.interface";
-import { Player } from "../entities/Player";
+import { Entity } from "../entities/Entity";
 
 export class Bullet {
 
@@ -17,7 +17,7 @@ export class Bullet {
     position: Point,
     private speed: number,
     private distance: number,
-    private sourceEntity: Player,
+    private sourceEntity: Entity,
     private canvas: HTMLCanvasElement
   ) {
     this.position = {...position};

@@ -1,5 +1,5 @@
 import { CanvasUtils } from "../canvas-utils/CanvasUtils";
-import { Player } from "../entities/Player";
+import { Entity } from "../entities/Entity";
 import { Bullet } from "./Bullet";
 
 export class Weapon {
@@ -7,7 +7,7 @@ export class Weapon {
   private firedBullet: Bullet | null = null;
   constructor(
     private canvas: HTMLCanvasElement,
-    private entity: Player,
+    private entity: Entity,
     private damage: number,
   ) {
     this.canvasUtils = new CanvasUtils(this.canvas);

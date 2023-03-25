@@ -3,7 +3,7 @@ export interface Point {
   y: number;
 }
 
-export interface Dimnensions {
+export interface Dimensions {
   width: number;
   height: number;
 }

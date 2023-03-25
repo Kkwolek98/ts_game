@@ -1,7 +1,7 @@
 import { CollisionCircle } from "../collision/CollisionCircle";
 import { angleToVector } from "../misc/consts/angleUtils";
 import { GlobalSettings } from "../misc/GlobalSettings";
-import { Dimnensions, Point } from "../misc/interfaces/Point.interface";
+import { Dimensions, Point } from "../misc/interfaces/Point.interface";
 
 interface RestoreSettings {restoreSettings: Function};
 
@@ -29,7 +29,7 @@ export class CanvasUtils {
     return { restoreSettings: this.restoreSettings };
   }
 
-  public drawRectangle({x, y}: Point, {width, height}: Dimnensions, rotation: number | null = null, drawMode: DrawMode = DrawMode.FILL): RestoreSettings {
+  public drawRectangle({x, y}: Point, {width, height}: Dimensions, rotation: number | null = null, drawMode: DrawMode = DrawMode.FILL): RestoreSettings {
     this.ctx.beginPath();
     this.ctx.save();
     if (rotation !== null) {
