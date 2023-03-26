@@ -2,7 +2,7 @@ import { CollisionCircle } from "../collision/CollisionCircle";
 import { Game } from "../game/Game";
 import { GlobalSettings } from "../misc/GlobalSettings";
 
-export class Lightning {
+export class Lighting {
 
   private canvas: HTMLCanvasElement = GlobalSettings.canvasInstances.get('lightning')!;
   private ctx: CanvasRenderingContext2D = this.canvas.getContext('2d')!;
