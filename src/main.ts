@@ -1,6 +1,6 @@
-import { CanvasUtils } from "./canvas-utils/CanvasUtils";
-import { Game } from "./game/Game";
-import { GlobalSettings } from "./misc/GlobalSettings";
+import { CanvasUtils } from './canvas-utils/CanvasUtils';
+import { Game } from './game/Game';
+import { GlobalSettings } from './misc/GlobalSettings';
 
 let game: Game;
 

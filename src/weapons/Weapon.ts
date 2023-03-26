@@ -1,6 +1,6 @@
-import { CanvasUtils } from "../canvas-utils/CanvasUtils";
-import { Entity } from "../entities/Entity";
-import { Bullet } from "./Bullet";
+import { CanvasUtils } from '../canvas-utils/CanvasUtils';
+import { Entity } from '../entities/Entity';
+import { Bullet } from './Bullet';
 
 export class Weapon {
   private canvasUtils: CanvasUtils;
@@ -8,7 +8,7 @@ export class Weapon {
   constructor(
     private canvas: HTMLCanvasElement,
     private entity: Entity,
-    private damage: number,
+    private damage: number
   ) {
     this.canvasUtils = new CanvasUtils(this.canvas);
     this.listenForKey();
@@ -28,8 +28,8 @@ export class Weapon {
   private drawSelf(): void {
     this.canvasUtils.setFillStyle('gray');
     this.canvasUtils.drawRectangle(
-      { x: this.entity.collision.x - 3, y: this.entity.collision.y  },
-      { width: 6, height: 60  },
+      { x: this.entity.collision.x - 3, y: this.entity.collision.y },
+      { width: 6, height: 60 },
       this.entity.rotation
     );
     this.canvasUtils.restoreSettings();
@@ -40,11 +40,16 @@ export class Weapon {
       if (e.code === 'Space') {
         this.fireBullet();
       }
-    })
+    });
   }
 
   private fireBullet(): void {
-    this.firedBullet = new Bullet(this.entity.collision, 10, 200, this.entity, this.canvas);
+    this.firedBullet = new Bullet(
+      this.entity.collision,
+      20,
+      200,
+      this.entity,
+      this.canvas
+    );
   }
-
 }

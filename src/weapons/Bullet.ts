@@ -1,13 +1,12 @@
-import { CanvasUtils } from "../canvas-utils/CanvasUtils";
-import { angleToVector } from "../misc/consts/angleUtils";
-import { Point } from "../misc/interfaces/Point.interface";
-import { Vector } from "../misc/interfaces/Vector.interface";
-import { Entity } from "../entities/Entity";
+import { CanvasUtils } from '../canvas-utils/CanvasUtils';
+import { angleToVector } from '../misc/consts/angleUtils';
+import { Point } from '../misc/interfaces/Point.interface';
+import { Vector } from '../misc/interfaces/Vector.interface';
+import { Entity } from '../entities/Entity';
 
 export class Bullet {
-
   public destroySelf: boolean = false;
-  
+
   private positionLimit: Point;
   private canvasUtils: CanvasUtils;
   private position: Point;
@@ -20,29 +19,31 @@ export class Bullet {
     private sourceEntity: Entity,
     private canvas: HTMLCanvasElement
   ) {
-    this.position = {...position};
-    this.positionLimit = { x: this.position.x, y: this.position.y - this.distance };
+    this.position = { ...position };
+    this.positionLimit = {
+      x: this.position.x,
+      y: this.position.y - this.distance,
+    };
     this.canvasUtils = new CanvasUtils(this.canvas);
     this.fireVector = angleToVector(this.sourceEntity.rotation);
   }
 
-    public draw(): void {
-      if (!this.destroySelf) {
-        this.canvasUtils.setFillStyle('red');
-        this.canvasUtils.drawCircle({...this.position, radius: 5});
-        this.canvasUtils.restoreSettings();
-  
-        this.updatePosition();
+  public draw(): void {
+    if (!this.destroySelf) {
+      this.canvasUtils.setFillStyle('red');
+      this.canvasUtils.drawCircle({ ...this.position, radius: 5 });
+      this.canvasUtils.restoreSettings();
 
-        if (this.positionLimit.y === this.position.y) {
-          this.destroySelf = true;
-        }
+      this.updatePosition();
+
+      if (this.positionLimit.y === this.position.y) {
+        this.destroySelf = true;
       }
     }
+  }
 
-    private updatePosition(): void {
-      this.position.y += this.fireVector.y * this.speed;
-      this.position.x += this.fireVector.x * this.speed;
-    }
-
+  private updatePosition(): void {
+    this.position.y += this.fireVector.y * this.speed;
+    this.position.x += this.fireVector.x * this.speed;
+  }
 }

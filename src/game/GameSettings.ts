@@ -1,7 +1,3 @@
 export class GameSettings {
-
-  constructor(
-    public fps: number,
-  ) {}
-
+  constructor(public fps: number) {}
 }
