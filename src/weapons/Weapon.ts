@@ -4,24 +4,25 @@ import { Bullet } from './Bullet';
 
 export class Weapon {
   private canvasUtils: CanvasUtils;
-  private firedBullet: Bullet | null = null;
+  private firedBullets: Bullet[] = [];
+  private cooldown: number;
+  private lastShootBulletTimestamp: number = (new Date()).getTime();
+  private fireKeyPressed: boolean = false;
+
   constructor(
     private canvas: HTMLCanvasElement,
     private entity: Entity,
-    private damage: number
+    private damage: number,
+    bulletsPerSecond: number
   ) {
     this.canvasUtils = new CanvasUtils(this.canvas);
+    this.cooldown = 1000 / bulletsPerSecond;
     this.listenForKey();
   }
 
   public draw(): void {
-    if (this.firedBullet) {
-      if (this.firedBullet.destroySelf) {
-        this.firedBullet = null;
-      } else {
-        this.firedBullet.draw();
-      }
-    }
+    this.fireBullet();
+    this.drawBullets();
     this.drawSelf();
   }
 
@@ -35,21 +36,46 @@ export class Weapon {
     this.canvasUtils.restoreSettings();
   }
 
+  private drawBullets(): void {
+    if (this.firedBullets.length) {
+      this.firedBullets.forEach((bullet, i) => {
+        if (bullet.destroySelf) {
+          this.firedBullets.splice(i, 1);
+        } else {
+          bullet.draw();
+        }
+      });
+    }
+  }
+
   private listenForKey(): void {
-    window.addEventListener('keypress', (e) => {
+    window.addEventListener('keydown', (e) => {
       if (e.code === 'Space') {
-        this.fireBullet();
+        this.fireKeyPressed = true;
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.code === 'Space') {
+        this.fireKeyPressed = false;
       }
     });
   }
 
   private fireBullet(): void {
-    this.firedBullet = new Bullet(
-      this.entity.collision,
-      20,
-      200,
-      this.entity,
-      this.canvas
+    if (!this.fireKeyPressed) return;
+    if ((new Date()).getTime() < this.lastShootBulletTimestamp + this.cooldown) return;
+
+    this.firedBullets.push(
+      new Bullet(
+        this.entity.collision,
+        20,
+        200,
+        this.entity,
+        this.canvas
+      )
     );
+
+    this.lastShootBulletTimestamp = (new Date()).getTime();
   }
 }

@@ -36,7 +36,7 @@ export class Bullet {
 
       this.updatePosition();
 
-      if (this.positionLimit.y === this.position.y) {
+      if (this.isOutOfBounds()) {
         this.destroySelf = true;
       }
     }
@@ -45,5 +45,12 @@ export class Bullet {
   private updatePosition(): void {
     this.position.y += this.fireVector.y * this.speed;
     this.position.x += this.fireVector.x * this.speed;
+  }
+
+  private isOutOfBounds(): boolean {
+    const isOutOfXBounds = this.position.x < 0 || this.position.x > this.canvas.width;
+    const isOutOfYBounds = this.position.y < 0 || this.position.y > this.canvas.height;
+
+    return isOutOfXBounds || isOutOfYBounds;
   }
 }
