@@ -20,23 +20,13 @@ export class MovementHandler {
     }
   }
 
-  public move(x?: number, y?: number) {
+  public move(): void {
     const pressedAnyKey = this.pressedKeyX || this.pressedKeyY;
 
     if (this.entity instanceof Player && pressedAnyKey) {
-      const movementVector = this.getPositionDelta();
-      this.entity.collision.x += movementVector.x;
-      this.entity.collision.y += movementVector.y;
+      this.handlePlayerMovement();
     } else if(!(this.entity instanceof Player)) {
-      const radiansToPlayer = Math.atan2(
-        this.game?.player.collision.x - this.entity.collision.x,
-        this.game?.player.collision.y - this.entity.collision.y
-      );
-      const angle = ((radiansToPlayer * -180) / Math.PI + 360) % 360;
-      const vector = angleToVector(angle);
-      const movementVector = this.getPositionDelta(vector);
-      this.entity.collision.x += movementVector.x;
-      this.entity.collision.y += movementVector.y;
+      this.followPlayer();
     }
 
   }
@@ -58,7 +48,7 @@ export class MovementHandler {
     };
   }
 
-  private setupListener() {
+  private setupListener(): void {
     window.addEventListener('keydown', (e: KeyboardEvent) => {
       if (getMovementType(e.key) === MovementType.HORIZONTAL) {
         this.allPressedKeysX.push(e.key);
@@ -78,5 +68,23 @@ export class MovementHandler {
         this.pressedKeyY = this.allPressedKeysY[this.allPressedKeysY.length - 1];
       }
     });
+  }
+
+  private followPlayer(): void {
+    const radiansToPlayer = Math.atan2(
+      this.game?.player.collision.x - this.entity.collision.x,
+      this.game?.player.collision.y - this.entity.collision.y
+    );
+    const angle = ((radiansToPlayer * -180) / Math.PI + 360) % 360;
+    const vector = angleToVector(angle);
+    const movementVector = this.getPositionDelta(vector);
+    this.entity.collision.x += movementVector.x;
+    this.entity.collision.y += movementVector.y;
+  }
+
+  private handlePlayerMovement(): void {
+    const movementVector = this.getPositionDelta();
+    this.entity.collision.x += movementVector.x;
+    this.entity.collision.y += movementVector.y;
   }
 }
