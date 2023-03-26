@@ -1,6 +1,10 @@
-import { Entity } from "../entities/Entity";
-import { Player } from "../entities/Player";
-import { getMovementType, getMovementVector, MovementType } from "./consts/defaultKeyMapping";
+import { Entity } from '../entities/Entity';
+import { Player } from '../entities/Player';
+import {
+  getMovementType,
+  getMovementVector,
+  MovementType,
+} from './consts/defaultKeyMapping';
 
 export class RotationHandler {
   constructor(private entity: Entity) {
@@ -10,18 +14,20 @@ export class RotationHandler {
   }
 
   public handleRotation(): void {
-    const {x, y} = this.entity.movementHandler.getMovementVector();
+    const { x, y } = this.entity.movementHandler.getMovementVector();
 
     this.setRotation(x, y);
   }
 
   public handleStaticRotation(key: string): void {
-    const pressedKeyX = getMovementType(key) === MovementType.HORIZONTAL ? key : undefined;
-    const pressedKeyY = getMovementType(key) === MovementType.VERTICAL ? key : undefined;
-  
-    const {x, y} = getMovementVector(pressedKeyX, pressedKeyY);
+    const pressedKeyX =
+      getMovementType(key) === MovementType.HORIZONTAL ? key : undefined;
+    const pressedKeyY =
+      getMovementType(key) === MovementType.VERTICAL ? key : undefined;
 
-    this.setRotation(x, y)
+    const { x, y } = getMovementVector(pressedKeyX, pressedKeyY);
+
+    this.setRotation(x, y);
   }
 
   private setRotation(x: number, y: number): void {
@@ -35,7 +41,7 @@ export class RotationHandler {
   private listenForStaticRotation(): void {
     window.addEventListener('keydown', (e) => {
       if (!e.shiftKey) return;
-      this.handleStaticRotation(e.key.toLowerCase())
+      this.handleStaticRotation(e.key.toLowerCase());
     });
   }
 }

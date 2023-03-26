@@ -1,16 +1,14 @@
-import { CollisionCircle } from "../../collision/CollisionCircle";
-import { Game } from "../../game/Game";
-import { Entity } from "../Entity";
+import { CollisionCircle } from '../../collision/CollisionCircle';
+import { Game } from '../../game/Game';
+import { MovementHandlerFactory } from '../../movement/MovementHandlerFactory';
+import { Entity } from '../Entity';
 
 export class Enemy extends Entity {
-
   public override speed: number = 6;
 
-  constructor(
-    collision: CollisionCircle,
-    game: Game
-  ) {
+  constructor(collision: CollisionCircle, game: Game) {
     super(collision, game);
+    this.movementHandler = MovementHandlerFactory.getHandler(this, game);
   }
 
   protected override draw(): void {
@@ -18,5 +16,4 @@ export class Enemy extends Entity {
     this.canvasUtils.drawCircle(this.collision);
     this.canvasUtils.restoreSettings();
   }
-
 }
