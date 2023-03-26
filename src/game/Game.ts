@@ -14,7 +14,7 @@ export class Game {
 
   private ui: UI;
   private enemySpawner: EnemySpawner;
-  private lightning: Lighting;
+  private lighting: Lighting;
 
   constructor(private settings: GameSettings) {
     if (GlobalSettings.canvasInstances.has('background')) {
@@ -25,7 +25,7 @@ export class Game {
     this.player = new Player({ x: 900, y: 900, radius: 10 }, this);
     this.ui = new UI(this);
     this.enemySpawner = new EnemySpawner(this);
-    this.lightning = new Lighting(this);
+    this.lighting = new Lighting(this);
   }
 
   start() { }
@@ -34,6 +34,6 @@ export class Game {
     this.player?.update();
     this.enemies.forEach((enemy) => enemy.update());
     this.ui.update();
-    this.lightning.update();
+    this.lighting.update();
   }
 }
