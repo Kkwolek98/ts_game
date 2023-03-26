@@ -1,4 +1,4 @@
-type AvailableCanvas = 'background' | 'ui' | 'player';
+type AvailableCanvas = 'background' | 'ui' | 'player' | 'lightning';
 
 export class GlobalSettings {
   public static canvasInstances: Map<AvailableCanvas, HTMLCanvasElement> =

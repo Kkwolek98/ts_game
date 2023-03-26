@@ -8,6 +8,7 @@ function init(): void {
   const gameCanvas = document.getElementById('game') as HTMLCanvasElement;
   const uiCanvas = document.getElementById('ui') as HTMLCanvasElement;
   const playerCanvas = document.getElementById('player') as HTMLCanvasElement;
+  const lightningCanvas = document.getElementById('lightning') as HTMLCanvasElement;
 
   gameCanvas.width = 1920;
   gameCanvas.height = 1080;
@@ -18,9 +19,13 @@ function init(): void {
   playerCanvas.width = 1920;
   playerCanvas.height = 1080;
 
+  lightningCanvas.width = 1920;
+  lightningCanvas.height = 1080;
+
   GlobalSettings.canvasInstances.set('ui', uiCanvas);
   GlobalSettings.canvasInstances.set('background', gameCanvas);
   GlobalSettings.canvasInstances.set('player', playerCanvas);
+  GlobalSettings.canvasInstances.set('lightning', lightningCanvas);
 
   startGame();
   loop();

@@ -50,12 +50,14 @@ export class Weapon {
 
   private listenForKey(): void {
     window.addEventListener('keydown', (e) => {
+      e.preventDefault();
       if (e.code === 'Space') {
         this.fireKeyPressed = true;
       }
     });
 
     window.addEventListener('keyup', (e) => {
+      e.preventDefault();
       if (e.code === 'Space') {
         this.fireKeyPressed = false;
       }
