@@ -83,8 +83,8 @@ export class SpatialHashGrid {
     let entityBounds;
     // if (client.entity.collision instanceof CollisionCircle) { // TODO: In case of different collision shapes
     entityBounds = [
-      { min: entity.collision.x - entity.collision.radius, max: entity.collision.x + entity.collision.radius }, // x bounds
-      { min: entity.collision.y - entity.collision.radius, max: entity.collision.y + entity.collision.radius }, // y bounds
+      { min: Math.max(entity.collision.x - entity.collision.radius, 0), max: Math.min(entity.collision.x + entity.collision.radius, this.dimensions.width) }, // x bounds
+      { min: Math.max(entity.collision.y - entity.collision.radius, 0), max: Math.min(entity.collision.y + entity.collision.radius, this.dimensions.height) }, // y bounds
     ];
     // }
 

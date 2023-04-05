@@ -28,7 +28,7 @@ export class Game {
     }
     this.player = new Player({ x: 900, y: 900, radius: 10 }, this);
     this.ui = new UI(this);
-    this.spatialHashGrid = new SpatialHashGrid({ width: this.canvas.width, height: this.canvas.height }, 240, 240);
+    this.spatialHashGrid = new SpatialHashGrid({ width: this.canvas.width, height: this.canvas.height }, 300, 300);
     this.enemySpawner = new EnemySpawner(this);
     this.lighting = new Lighting(this);
     this.playerClient = this.spatialHashGrid.newClient(this.player)
@@ -46,9 +46,9 @@ export class Game {
     this.lighting.update();
     this.spatialHashGrid.updateClient(this.playerClient)
 
-    // const found = this.spatialHashGrid.findNear(this.playerClient);
+    const found = this.spatialHashGrid.findNear(this.playerClient);
 
-    // found.forEach((client) => client.entity.debugColor = 'green')
+    found.forEach((client) => client.entity.debugColor = 'green')
 
   }
 }
