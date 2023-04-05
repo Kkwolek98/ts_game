@@ -28,5 +28,7 @@ export class EnemySpawner {
       Math.random() * 10 + 5
     );
     this.enemies.push(new Enemy(enemyCollision, this.game));
+    const client = this.game.spatialHashGrid.newClient(this.enemies[this.enemies.length - 1]);
+    this.game.clients.add(client);
   }
 }

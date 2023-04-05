@@ -16,6 +16,8 @@ export class Entity implements Movable {
   public rotationHandler: RotationHandler
   public canvasUtils!: CanvasUtils
 
+  public debugColor?: string;
+
   protected equippedWeapon?: Weapon
   protected canvas: HTMLCanvasElement =
     GlobalSettings.canvasInstances.get('player')!

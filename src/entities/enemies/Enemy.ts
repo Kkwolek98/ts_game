@@ -12,7 +12,7 @@ export class Enemy extends Entity {
   }
 
   protected override draw(): void {
-    this.canvasUtils.setFillStyle('brown');
+    this.canvasUtils.setFillStyle(this.debugColor || 'brown');
     this.canvasUtils.drawCircle(this.collision);
     this.canvasUtils.restoreSettings();
   }

@@ -7,7 +7,7 @@ export class Lighting {
   private canvas: HTMLCanvasElement = GlobalSettings.canvasInstances.get('lightning')!;
   private ctx: CanvasRenderingContext2D = this.canvas.getContext('2d')!;
 
-  private lightningArea: number = 350;
+  private lightningArea: number = 180;
 
   constructor(
     private game: Game
@@ -26,7 +26,7 @@ export class Lighting {
     gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
     gradient.addColorStop(0.7, 'rgba(0, 0, 0, 0.05)');
     gradient.addColorStop(0.9, 'rgba(0, 0, 0, 0.5)');
-    gradient.addColorStop(1, 'rgba(0, 0, 0, .8)');
+    gradient.addColorStop(1, 'rgba(0, 0, 0, .6)');
 
     this.ctx.fillStyle = gradient;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
