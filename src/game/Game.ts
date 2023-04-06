@@ -6,6 +6,7 @@ import { Enemy } from '../entities/enemies/Enemy';
 import { EnemySpawner } from '../entities/enemies/EnemySpawner';
 import { Lighting } from '../lighting/Lighting';
 import { Client, SpatialHashGrid } from '../collision/SpatialHashGrid';
+import { Entity } from '../entities/Entity';
 
 export class Game {
   //singleton
@@ -60,6 +61,6 @@ export class Game {
 
     const found = this.spatialHashGrid.findNear(this.playerClient);
 
-    found.forEach((client) => client.entity.debugColor = 'green');
+    found.forEach((client) => (client.entity as Entity).debugColor = 'green');
   }
 }

@@ -1,10 +1,11 @@
 import { Entity } from "../entities/Entity";
 import { math } from "../math";
 import { Dimensions, Point } from "../misc/interfaces/Point.interface";
+import { Movable } from "../movement/interfaces/Movable.interface";
 import { CollisionCircle } from "./CollisionCircle";
 
 export interface Client {
-  entity: Entity,
+  entity: Movable,
   indices: number[][]
 }
 
@@ -21,7 +22,7 @@ export class SpatialHashGrid {
     this.generateCells(cellsX, cellsY);
   }
 
-  public newClient(entity: Entity): Client {
+  public newClient(entity: Movable): Client {
     const client: Client = {
       entity,
       indices: [],
@@ -35,7 +36,7 @@ export class SpatialHashGrid {
   public updateClient(client: Client): void {
     this.removeClient(client);
     this.insertClient(client);
-    client.entity.debugColor = undefined;
+    (client.entity as Entity).debugColor = undefined;
   }
 
   public removeClient(client: Client): void {
