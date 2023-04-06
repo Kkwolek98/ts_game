@@ -14,18 +14,20 @@ export class Game {
   public canvas: HTMLCanvasElement;
   public spatialHashGrid: SpatialHashGrid
   public clients: Set<Client> = new Set();
+  public settings: GameSettings;
 
   private ui: UI;
   private enemySpawner: EnemySpawner;
   private lighting: Lighting;
   private playerClient: Client;
 
-  constructor(private settings: GameSettings) {
+  constructor(settings: { fps: number }) {
     if (GlobalSettings.canvasInstances.has('background')) {
       this.canvas = GlobalSettings.canvasInstances.get('background')!;
     } else {
       throw new Error('Background canvas undefined');
     }
+    this.settings = new GameSettings(settings.fps);
     this.player = new Player({ x: 900, y: 900, radius: 10 }, this);
     this.ui = new UI(this);
     this.spatialHashGrid = new SpatialHashGrid({ width: this.canvas.width, height: this.canvas.height }, 300, 300);
