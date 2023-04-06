@@ -56,11 +56,10 @@ export class Game {
     this.enemies.forEach((enemy) => enemy.update());
     this.ui.update();
     this.lighting.update();
-    this.spatialHashGrid.updateClient(this.playerClient)
+    this.clients.forEach((client) => this.spatialHashGrid.updateClient(client));
 
     const found = this.spatialHashGrid.findNear(this.playerClient);
 
-    found.forEach((client) => client.entity.debugColor = 'green')
-
+    found.forEach((client) => client.entity.debugColor = 'green');
   }
 }

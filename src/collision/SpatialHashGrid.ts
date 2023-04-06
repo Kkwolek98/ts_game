@@ -51,6 +51,8 @@ export class SpatialHashGrid {
       this.cells[y][x].forEach((client) => nearClients.add(client));
     });
 
+    nearClients.delete(client);
+
     return nearClients;
   }
 
