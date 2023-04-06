@@ -8,6 +8,16 @@ import { Lighting } from '../lighting/Lighting';
 import { Client, SpatialHashGrid } from '../collision/SpatialHashGrid';
 
 export class Game {
+  //singleton
+  private static _instance: Game;
+  public static getInstance(settings?: { fps: number }): Game {
+    if (!this._instance) {
+      this._instance = new Game(settings || { fps: 30 });
+    }
+
+    return this._instance;
+  }
+
   public player: Player;
   public enemies: Enemy[] = [];
   public enemyLimit: number = 5;
@@ -21,7 +31,7 @@ export class Game {
   private lighting: Lighting;
   private playerClient: Client;
 
-  constructor(settings: { fps: number }) {
+  private constructor(settings: { fps: number }) {
     if (GlobalSettings.canvasInstances.has('background')) {
       this.canvas = GlobalSettings.canvasInstances.get('background')!;
     } else {

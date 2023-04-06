@@ -3,6 +3,7 @@ import { angleToVector } from '../misc/consts/angleUtils';
 import { Point } from '../misc/interfaces/Point.interface';
 import { Vector } from '../misc/interfaces/Vector.interface';
 import { Entity } from '../entities/Entity';
+import { Game } from '../game/Game';
 
 export class Bullet {
   public destroySelf: boolean = false;
@@ -11,6 +12,7 @@ export class Bullet {
   private canvasUtils: CanvasUtils;
   private position: Point;
   private fireVector: Vector;
+  private game: Game = Game.getInstance();
 
   constructor(
     position: Point,
@@ -43,8 +45,8 @@ export class Bullet {
   }
 
   private updatePosition(): void {
-    this.position.y += this.fireVector.y * this.speed;
-    this.position.x += this.fireVector.x * this.speed;
+    this.position.y += this.fireVector.y * this.speed * this.game.settings.getTimeModifier();
+    this.position.x += this.fireVector.x * this.speed * this.game.settings.getTimeModifier();
   }
 
   private isOutOfBounds(): boolean {

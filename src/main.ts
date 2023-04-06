@@ -33,7 +33,7 @@ function init(): void {
 }
 
 function startGame(): void {
-  game = new Game({ fps: 30 });
+  game = Game.getInstance({ fps: 30 });
   game.start();
 
   frameTime = Math.floor(1000 / game.settings.fps);
