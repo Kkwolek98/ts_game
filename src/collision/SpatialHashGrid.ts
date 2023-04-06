@@ -20,6 +20,7 @@ export class SpatialHashGrid {
   ) {
     const [cellsX, cellsY] = this.calculateGridDimensions(this.dimensions, this.cellWidth, this.cellHeight);
     this.generateCells(cellsX, cellsY);
+    console.log(this.cells)
   }
 
   public newClient(entity: Movable): Client {
@@ -61,9 +62,13 @@ export class SpatialHashGrid {
     const indices = this.getClientIndices(client);
     client.indices = indices;
 
-    indices.forEach(([x, y]) => {
-      this.cells[y][x].add(client);
-    });
+    try {
+      indices.forEach(([x, y]) => {
+        this.cells[y][x].add(client);
+      });
+    } catch (e) {
+      console.error(e, { indices })
+    }
   }
 
   private getClientIndices(client: Client): number[][] {
