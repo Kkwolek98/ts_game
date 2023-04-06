@@ -62,13 +62,9 @@ export class SpatialHashGrid {
     const indices = this.getClientIndices(client);
     client.indices = indices;
 
-    try {
-      indices.forEach(([x, y]) => {
-        this.cells[y][x].add(client);
-      });
-    } catch (e) {
-      console.error(e, { indices })
-    }
+    indices.forEach(([x, y]) => {
+      this.cells[y]?.[x].add(client); // TODO: There's a bug, client indices aren't correct
+    });
   }
 
   private getClientIndices(client: Client): number[][] {
