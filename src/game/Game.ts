@@ -57,6 +57,11 @@ export class Game {
     this.enemies.forEach((enemy) => {
       if (enemy.currentHp === 0) {
         this.enemies.splice(this.enemies.findIndex((el) => el === enemy), 1);
+        const client = this.spatialHashGrid.clientsByEntity.get(enemy);
+        if (client) {
+          this.spatialHashGrid.removeClient(client);
+          this.clients.delete(client);
+        };
       } else {
         enemy.update();
       }

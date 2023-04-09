@@ -7,7 +7,7 @@ import { Entity } from './Entity';
 export class Player extends Entity {
   constructor(collision: CollisionCircle, game: Game) {
     super(collision);
-    this.equippedWeapon = new Weapon(this.canvas, this, 10, 5);
+    this.equippedWeapon = new Weapon(this.canvas, this, 10, 5, game);
     this.movementHandler = MovementHandlerFactory.getHandler(this, game);
   }
 

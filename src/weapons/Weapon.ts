@@ -1,5 +1,6 @@
 import { CanvasUtils } from '../canvas-utils/CanvasUtils';
 import { Entity } from '../entities/Entity';
+import { Game } from '../game/Game';
 import { Bullet } from './Bullet';
 
 export class Weapon {
@@ -13,7 +14,8 @@ export class Weapon {
     private canvas: HTMLCanvasElement,
     private entity: Entity,
     private damage: number,
-    bulletsPerSecond: number
+    bulletsPerSecond: number,
+    private game: Game,
   ) {
     this.canvasUtils = new CanvasUtils(this.canvas);
     this.cooldown = 1000 / bulletsPerSecond;
@@ -41,6 +43,8 @@ export class Weapon {
       this.firedBullets.forEach((bullet, i) => {
         if (bullet.destroySelf) {
           this.firedBullets.splice(i, 1);
+          const client = this.game.spatialHashGrid.clientsByEntity.get(bullet);
+          if (client) this.game.clients.delete(client);
         } else {
           bullet.draw();
         }
@@ -50,15 +54,15 @@ export class Weapon {
 
   private listenForKey(): void {
     window.addEventListener('keydown', (e) => {
-      e.preventDefault();
       if (e.code === 'Space') {
+        e.preventDefault();
         this.fireKeyPressed = true;
       }
     });
 
     window.addEventListener('keyup', (e) => {
-      e.preventDefault();
       if (e.code === 'Space') {
+        e.preventDefault();
         this.fireKeyPressed = false;
       }
     });

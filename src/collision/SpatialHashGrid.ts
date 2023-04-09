@@ -11,6 +11,8 @@ export interface Client {
 
 export class SpatialHashGrid {
 
+  public clientsByEntity: Map<Movable, Client> = new Map();
+
   private cells: Set<Client>[][] = [];
 
   constructor(
@@ -37,10 +39,11 @@ export class SpatialHashGrid {
   public updateClient(client: Client): void {
     this.removeClient(client);
     this.insertClient(client);
-    (client.entity as Entity).debugColor = undefined;
   }
 
   public removeClient(client: Client): void {
+    this.clientsByEntity.delete(client.entity);
+
     client.indices.forEach(([x, y]) => {
       this.cells[y][x].delete(client);
     });
@@ -59,6 +62,8 @@ export class SpatialHashGrid {
   }
 
   private insertClient(client: Client): void {
+    this.clientsByEntity.set(client.entity, client);
+
     const indices = this.getClientIndices(client);
     client.indices = indices;
 
