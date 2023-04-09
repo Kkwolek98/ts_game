@@ -53,7 +53,7 @@ export class Game {
   start() { }
 
   animate() {
-    this.player?.update();
+    this.player.update();
     this.enemies.forEach((enemy) => {
       if (enemy.currentHp === 0) {
         this.enemies.splice(this.enemies.findIndex((el) => el === enemy), 1);
