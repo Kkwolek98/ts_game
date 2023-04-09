@@ -31,7 +31,8 @@ export class Bullet implements Movable {
     };
     this.canvasUtils = new CanvasUtils(this.canvas);
     this.fireVector = angleToVector(this.sourceEntity.rotation);
-    this.game.spatialHashGrid.newClient(this);
+    const client = this.game.spatialHashGrid.newClient(this);
+    this.game.clients.add(client);
   }
 
   public draw(): void {

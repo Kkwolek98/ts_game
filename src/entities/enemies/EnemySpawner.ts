@@ -13,19 +13,22 @@ export class EnemySpawner {
       width: this.game.canvas.width,
       height: this.game.canvas.height,
     };
-    this.spawn();
-    setInterval(() => {
-      if (this.game.enemyLimit > this.enemies.length) {
-        this.spawn();
-      }
-    }, delay);
+    // this.spawn();
+    // setInterval(() => {
+    //   if (this.game.enemyLimit > this.enemies.length) {
+    //     this.spawn();
+    //   }
+    // }, delay);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'q') this.spawn();
+    })
   }
 
   public spawn(): void {
     const enemyCollision: CollisionCircle = new CollisionCircle(
       Math.random() * this.gameDimensions.width,
       Math.random() * this.gameDimensions.height,
-      Math.random() * 10 + 5
+      Math.random() * 30 + 5
     );
     this.enemies.push(new Enemy(enemyCollision, this.game));
     const client = this.game.spatialHashGrid.newClient(this.enemies[this.enemies.length - 1]);

@@ -19,11 +19,11 @@ export class EnemyMovementHandler extends MovementHandler {
     const isNotTouchingPlayer = distanceToPlayer >= (this.game.player.collision.radius + this.entity.collision.radius);
     const isInDetectionRadius = distanceToPlayer <= this.detectionRadius;
 
-    if (isNotTouchingPlayer && isInDetectionRadius) {
-      this.followPlayer();
-    } else if (isNotTouchingPlayer) {
-      this.roamFreely();
-    }
+    // if (isNotTouchingPlayer && isInDetectionRadius) {
+    //   this.followPlayer();
+    // } else if (isNotTouchingPlayer) {
+    //   this.roamFreely();
+    // }
   }
 
   private followPlayer(): void {

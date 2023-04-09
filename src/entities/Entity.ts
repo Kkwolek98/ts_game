@@ -1,5 +1,6 @@
 import { CanvasUtils } from '../canvas-utils/CanvasUtils'
 import { CollisionCircle } from '../collision/CollisionCircle'
+import { CollisionHandler } from '../collision/CollisionHandler'
 import { Game } from '../game/Game'
 import { GlobalSettings } from '../misc/GlobalSettings'
 import { Movable } from '../movement/interfaces/Movable.interface'
@@ -22,14 +23,14 @@ export class Entity implements Movable {
   protected canvas: HTMLCanvasElement =
     GlobalSettings.canvasInstances.get('player')!
 
-  constructor(public collision: CollisionCircle, game: Game) {
+  constructor(public collision: CollisionCircle) {
     if (this.canvas) {
       this.canvasUtils = new CanvasUtils(this.canvas)
     } else {
       throw new Error('Player canvas undefined')
     }
     // this.movementHandler = MovementHandlerFactory.getHandler(this, game);
-    this.rotationHandler = new RotationHandler(this)
+    this.rotationHandler = new RotationHandler(this);
   }
 
   public update(): void {
