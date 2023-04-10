@@ -1,4 +1,3 @@
-import { Entity } from '../entities/Entity';
 import { Player } from '../entities/Player';
 import { Game } from '../game/Game';
 import {
@@ -8,7 +7,7 @@ import {
 } from './consts/defaultKeyMapping';
 import { MovementHandler } from './MovementHandler';
 
-export class PlayerMovementHandler extends MovementHandler {
+export class PlayerMovementHandler extends MovementHandler<Player> {
   private pressedKeyY: string | undefined;
   private pressedKeyX: string | undefined;
   private allPressedKeysX: string[] = [];
@@ -24,8 +23,7 @@ export class PlayerMovementHandler extends MovementHandler {
   }
 
   public move(): void {
-
-    if (this.pressedAnyKey) {
+    if (this.pressedAnyKey && !this.entity.willColide) {
       this.changeSpeed(.5);
       this.handlePlayerMovement();
     }

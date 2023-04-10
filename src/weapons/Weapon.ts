@@ -44,7 +44,10 @@ export class Weapon {
         if (bullet.destroySelf) {
           this.firedBullets.splice(i, 1);
           const client = this.game.spatialHashGrid.clientsByEntity.get(bullet);
-          if (client) this.game.clients.delete(client);
+          if (client) {
+            this.game.clients.delete(client);
+            this.game.spatialHashGrid.removeClient(client);
+          }
         } else {
           bullet.draw();
         }

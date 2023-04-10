@@ -1,8 +1,5 @@
-import { Entity } from "../entities/Entity";
-import { math } from "../math";
-import { Dimensions, Point } from "../misc/interfaces/Point.interface";
+import { Dimensions } from "../misc/interfaces/Point.interface";
 import { Movable } from "../movement/interfaces/Movable.interface";
-import { CollisionCircle } from "./CollisionCircle";
 
 export interface Client {
   entity: Movable,
@@ -22,7 +19,6 @@ export class SpatialHashGrid {
   ) {
     const [cellsX, cellsY] = this.calculateGridDimensions(this.dimensions, this.cellWidth, this.cellHeight);
     this.generateCells(cellsX, cellsY);
-    console.log(this.cells)
   }
 
   public newClient(entity: Movable): Client {
@@ -49,7 +45,7 @@ export class SpatialHashGrid {
     });
   }
 
-  public findNear(client: Client, outerCellsNumber: number = 1): Set<Client> {
+  public findNear(client: Client): Set<Client> {
     const nearClients: Set<Client> = new Set();
 
     client.indices.forEach(([x, y]) => {

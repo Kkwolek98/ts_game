@@ -5,9 +5,10 @@ import { Entity } from '../Entity';
 
 export class Enemy extends Entity {
   public override speed: number = 6;
+  public willColide: boolean = false;
 
   constructor(collision: CollisionCircle, game: Game) {
-    super(collision, game);
+    super(collision);
     this.movementHandler = MovementHandlerFactory.getHandler(this, game);
   }
 

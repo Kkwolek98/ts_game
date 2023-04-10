@@ -53,7 +53,8 @@ export class Game {
   start() { }
 
   animate() {
-    this.player.update();
+    this.handleCollisions();
+
     this.enemies.forEach((enemy) => {
       if (enemy.currentHp === 0) {
         this.enemies.splice(this.enemies.findIndex((el) => el === enemy), 1);
@@ -66,11 +67,9 @@ export class Game {
         enemy.update();
       }
     });
-    this.ui.update();
-
     this.clients.forEach((client) => this.spatialHashGrid.updateClient(client))
-
-    this.handleCollisions();
+    this.player.update();
+    this.ui.update();
   }
 
   handleCollisions() {

@@ -1,15 +1,17 @@
 import { Enemy } from "../entities/enemies/Enemy";
-import { Entity } from "../entities/Entity";
 import { Movable } from "../movement/interfaces/Movable.interface";
 import { Bullet } from "../weapons/Bullet";
-import { CollisionCircle } from "./CollisionCircle";
 
 export class CollisionHandler {
   public handleCollision(entity1: Movable, entity2: Movable) {
-    // console.log(entity1.collision, entity2.collision)d
-    if (!this.doEntitiesCollide(entity1.collision, entity2.collision)) return;
+    if (!this.willEntitiesCollide(entity1, entity2)) {
+      entity1.willColide = false;
+      entity2.willColide = false;
+      return;
+    };
 
-    console.log('hehe')
+    entity1.willColide = true;
+    entity2.willColide = true;
 
     if (entity1 instanceof Bullet && entity2 instanceof Enemy) {
       entity1.destroySelf = true;
@@ -21,14 +23,12 @@ export class CollisionHandler {
     }
   }
 
-  private doEntitiesCollide(entity1Collision: CollisionCircle, entity2Collision: CollisionCircle): boolean {
+  private willEntitiesCollide(entity1: Movable, entity2: Movable): boolean {
     const distanceBetweenEntities = Math.hypot(
-      entity1Collision.x - entity2Collision.x,
-      entity1Collision.y - entity2Collision.y
+      (entity1.collision.x + entity1.collision.radius * entity1.movementVector.x) - (entity2.collision.x + entity2.collision.radius * entity2.movementVector.x),
+      (entity1.collision.y + entity1.collision.radius * entity1.movementVector.y) - (entity2.collision.y + entity2.collision.radius * entity2.movementVector.y)
     );
 
-    // console.log(distanceBetweenEntities, entity1Coqllision.radius + entity2Collision.radius)
-
-    return distanceBetweenEntities <= entity1Collision.radius + entity2Collision.radius;
+    return distanceBetweenEntities < entity1.collision.radius + entity2.collision.radius;
   }
 }

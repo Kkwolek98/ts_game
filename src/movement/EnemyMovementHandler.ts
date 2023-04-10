@@ -5,7 +5,7 @@ import { Point } from '../misc/interfaces/Point.interface';
 import { Vector } from '../misc/interfaces/Vector.interface';
 import { MovementHandler } from './MovementHandler';
 
-export class EnemyMovementHandler extends MovementHandler {
+export class EnemyMovementHandler extends MovementHandler<Enemy> {
 
   private detectionRadius = 200;
   private freeRoamTarget?: Vector;
@@ -19,11 +19,11 @@ export class EnemyMovementHandler extends MovementHandler {
     const isNotTouchingPlayer = distanceToPlayer >= (this.game.player.collision.radius + this.entity.collision.radius);
     const isInDetectionRadius = distanceToPlayer <= this.detectionRadius;
 
-    // if (isNotTouchingPlayer && isInDetectionRadius) {
-    //   this.followPlayer();
-    // } else if (isNotTouchingPlayer) {
-    //   this.roamFreely();
-    // }
+    if (isNotTouchingPlayer && isInDetectionRadius) {
+      this.followPlayer();
+    } else if (isNotTouchingPlayer) {
+      this.roamFreely();
+    }
   }
 
   private followPlayer(): void {

@@ -2,8 +2,8 @@ import { Game } from '../game/Game';
 import { Vector } from '../misc/interfaces/Vector.interface';
 import { Movable } from './interfaces/Movable.interface';
 
-export class MovementHandler {
-  constructor(protected entity: Movable, protected game: Game) { }
+export class MovementHandler<EntityType> {
+  constructor(protected entity: Movable & EntityType, protected game: Game) { }
 
   public move(): void { }
 

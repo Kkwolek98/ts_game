@@ -11,6 +11,8 @@ export class Bullet implements Movable {
   public destroySelf: boolean = false;
   public collision: CollisionCircle;
   public rotation: number = 0;
+  public willColide: boolean = false;
+  public movementVector: Point = { x: 0, y: 0 };
 
   private positionLimit: Point;
   private canvasUtils: CanvasUtils;
@@ -31,6 +33,7 @@ export class Bullet implements Movable {
     };
     this.canvasUtils = new CanvasUtils(this.canvas);
     this.fireVector = angleToVector(this.sourceEntity.rotation);
+    this.movementVector = this.fireVector;
     const client = this.game.spatialHashGrid.newClient(this);
     this.game.clients.add(client);
   }
