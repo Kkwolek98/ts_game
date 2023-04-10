@@ -33,16 +33,6 @@ export class PlayerMovementHandler extends MovementHandler<Player> {
     return getMovementVector(this.pressedKeyX, this.pressedKeyY);
   }
 
-  private changeSpeed(increment: number): void {
-    if (this.entity.maxSpeed! >= this.entity.speed + increment && !(this.entity.speed + increment <= 0)) {
-      this.entity.speed += increment;
-    } else if (this.entity.speed + increment >= this.entity.maxSpeed!) {
-      this.entity.speed = this.entity.maxSpeed!;
-    } else if (this.entity.speed + increment <= 0) {
-      this.entity.speed = 0;
-    }
-  }
-
   private handlePlayerMovement(): void {
     const movementVector = this.getPositionDelta();
     this.entity.collision.x += movementVector.x;

@@ -24,4 +24,14 @@ export class MovementHandler<EntityType> {
       y: vector.y! * this.entity.speed * (diagonalModifier || 1) * this.game.settings.getTimeModifier(),
     };
   }
+
+  protected changeSpeed(increment: number): void {
+    if (this.entity.maxSpeed! >= this.entity.speed + increment && !(this.entity.speed + increment <= 0)) {
+      this.entity.speed += increment;
+    } else if (this.entity.speed + increment >= this.entity.maxSpeed!) {
+      this.entity.speed = this.entity.maxSpeed!;
+    } else if (this.entity.speed + increment <= 0) {
+      this.entity.speed = 0;
+    }
+  }
 }

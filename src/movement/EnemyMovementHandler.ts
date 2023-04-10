@@ -15,24 +15,34 @@ export class EnemyMovementHandler extends MovementHandler<Enemy> {
   }
 
   public override move(): void {
+    if (this.entity.willColide) return this.changeSpeed(-69);
+
     const distanceToPlayer = this.getDistanceToPoint(this.game.player.collision);
-    const isNotTouchingPlayer = distanceToPlayer >= (this.game.player.collision.radius + this.entity.collision.radius);
     const isInDetectionRadius = distanceToPlayer <= this.detectionRadius;
 
-    if (isNotTouchingPlayer && isInDetectionRadius) {
+    this.changeSpeed(1);
+
+    if (isInDetectionRadius) {
       this.followPlayer();
-    } else if (isNotTouchingPlayer) {
+    } else {
       this.roamFreely();
     }
   }
 
-  private followPlayer(): void {
+  public override getMovementVector(): Vector {
     const radiansToPlayer = Math.atan2(
       this.game?.player.collision.x - this.entity.collision.x,
       this.game?.player.collision.y - this.entity.collision.y
     );
     const angle = ((radiansToPlayer * -180) / Math.PI + 360) % 360;
     const vector = angleToVector(angle);
+
+    return vector;
+  }
+
+  private followPlayer(): void {
+    const vector = this.getMovementVector();
+
     const movementVector = this.getPositionDelta(vector);
     this.entity.collision.x += movementVector.x;
     this.entity.collision.y += movementVector.y;

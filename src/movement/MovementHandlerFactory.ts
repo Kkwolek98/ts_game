@@ -7,7 +7,7 @@ import { MovementHandler } from './MovementHandler';
 import { PlayerMovementHandler } from './PlayerMovementHandler';
 
 export class MovementHandlerFactory {
-  public static getHandler(entity: Entity, game: Game): MovementHandler {
+  public static getHandler(entity: Entity, game: Game): MovementHandler<unknown> {
     if (entity instanceof Player)
       return new PlayerMovementHandler(entity, game);
     if (entity instanceof Enemy) return new EnemyMovementHandler(entity, game);

@@ -4,7 +4,7 @@ import { MovementHandlerFactory } from '../../movement/MovementHandlerFactory';
 import { Entity } from '../Entity';
 
 export class Enemy extends Entity {
-  public override speed: number = 6;
+  public override maxSpeed: number = 6;
   public willColide: boolean = false;
 
   constructor(collision: CollisionCircle, game: Game) {
